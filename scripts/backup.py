@@ -1,15 +1,5 @@
 #Given a store name, this script generates a Checkout-compatible backup file.
 #This script is handy for customers who want to script automated backups. 
-#Dependencies: 
-# * Your checkout application must be running, but no need to be logged into a store.
-# * path to postgresql 8.3 utilities in PATH environment variable for example:
-#     PATH=/Applications/Checkout.app/Contents/Resources/postgres83/bin:$PATH
-# * python 2.6+
-# * Make sure that Postgressql knows about the user admin for checkout database
-#      touch ~/.pgpass >> localhost:5505:*:admin:admin
-#   You have to do this only once for this particular user that will run the script.
-#
-# Now Run the script:
 #      python backup.py "My Store name" ~/testbackup.checkoutbackup
 # Note that this script has no dependency on Checkout.app itself and therefore may be run from anywhere.
 
@@ -34,10 +24,29 @@ def check_output(*args,**kwargs): #new in python 2.7's subprocess...
         raise subprocess.CalledProcessError(p.returncode,errors)
     return output
 
+#detect path to postgresql 8.3 if Checkout.app is installed in its usual location
+if os.path.exists('/Applications/Checkout.app/'):
+    os.environ['PATH'] = '/Applications/Checkout.app/Contents/Resources/postgres83/bin:' + os.environ['PATH']
+
 #ensure we are using postgresql 8.3
 for tool in ['psql','pg_dumpall','pg_dump']:
-    version = check_output('{0} -V'.format(tool).split())
+    try:
+        version = check_output('{0} -V'.format(tool).split())
+    except OSError as e:
+        print e
+        sys.stderr.write('Failed to find postgresql binaries in PATH\n' + os.environ['PATH'])
+        sys.exit(-1)
+
     assert re.search('8\.3',version) is not None, "{0} is not from postgresql 8.3".format(tool)
+
+#setup ~/.pgpass
+pgpass_path = os.path.expanduser('~/.pgpass')
+if not os.path.exists(pgpass_path): #create pgpass
+    pgpass = os.fdopen(os.open(pgpass_path,os.O_APPEND|os.O_CREAT|os.O_WRONLY,0600),'a')
+else:
+    pgpass = open(pgpass_path,'a')
+pgpass.write('localhost:5505:*:admin:admin')
+pgpass.close()
 
 #determine store prefix from store name
 #get the list of database prefixes

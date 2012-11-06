@@ -1,40 +1,33 @@
 Checkoutapp-Scripts
 ===================
 
-End User scripts for the software Checkout.app
+End-user scripts for point-of-sale software Checkout.app
 
 
 backup.py 
 ----------
 
 
-This script can make a backup of your checkout database. This script is independent of the Checkout application, but has the following requirements:
+This script can make a backup of a Checkout store. This script can run independently of the Checkout application, but has the following requirements:
 
-* Your checkout application must be running, but no need to be logged into a store.
+* a running Checkout.app (perhaps on a separate computer). There is no need to log in to a specific store.
 
-* Python 2.6 or higher, but we didn't try to run in python 3.x
+* Python 2.6 or 2.7.
 
-* The script needs access to the Postgresql 8.3 that is embedded in the Checkout.app application.
+* postgresql 8.3, included in Checkout.app or installed manually
 
-The output file will be a compatible .checkoutdatabase file that is compressed with gzip, but can be used in the Manage Checkout Store... feature to restore your store.
+The output file is  .checkoutbackup file that is compressed with gzip and can be used in the "Manage Checkout Store..." interface to restore your store.
 
-How do I run the script:
+Preparation steps:
 
-* Open the Apple Terminal.app.
-* First let the terminal know where the PostgreSQL 8.3 is located, you can do this right here in the terminal app or you can add it to your ~/.bashprofile.
+* Open Terminal.app.
+* If Checkout.app is not installed in /Applications/, the postgresql 8.3 "bin" directory must be in the PATH environment variable:
 
-    `PATH=/Applications/Checkout.app/Contents/Resources/postgres83/bin:$PATH`
+    `export PATH=/Applications/Checkout.app/Contents/Resources/postgres83/bin:$PATH`
 
-* Setup the login for the PostgreSQL **admin** user by doing the following:
- 
-    `touch ~/.pgpass >> localhost:5505:*:admin:admin`
-    
-  This script will create for the current logged in user, the file ~/.pgpass and add a line localhost:5505:*:admin:admin, in case the file exist it will append the line to the end.
-  You have to run this command only once.
-  
 Now your are ready to run the backup script:
 
-    python backup.py "My Store name" ~/testbackup.checkoutbackup
+    `python backup.py "My Store name" ~/testbackup.checkoutbackup`
     
-In case you want to automate the backup and would like to run it once a day for example you can use cron, or use the GUI application [Cronnix](http://code.google.com/p/cronnix/) to set it up.
+If you wish to automate the backup, running it once-a-day for example, you can use cron, or use the GUI application [Cronnix](http://code.google.com/p/cronnix/) to set it up.
   
