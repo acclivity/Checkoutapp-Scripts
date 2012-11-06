@@ -14,7 +14,7 @@ This script can make a backup of a Checkout store. This script can run independe
 
 * Python 2.6 or 2.7.
 
-* postgresql 8.3, included in Checkout.app or installed manually
+* postgresql 8.3, included in Checkout.app or installed manually.
 
 The output file is  .checkoutbackup file that is compressed with gzip and can be used in the "Manage Checkout Store..." interface to restore your store.
 
