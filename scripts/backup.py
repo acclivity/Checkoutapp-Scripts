@@ -1,9 +1,16 @@
 #Given a store name, this script generates a Checkout-compatible backup file.
 #This script is handy for customers who want to script automated backups. 
 #Dependencies: 
-# * path to postgresql 8.3 utilities in PATH environment variable
+# * Your checkout application must be running, but no need to be logged into a store.
+# * path to postgresql 8.3 utilities in PATH environment variable for example:
+#     PATH=/Applications/Checkout.app/Contents/Resources/postgres83/bin:$PATH
 # * python 2.6+
-# * ~/.pgpass with contents: "localhost:5505:*:admin:admin"
+# * Make sure that Postgressql knows about the user admin for checkout database
+#      touch ~/.pgpass >> localhost:5505:*:admin:admin
+#   You have to do this only once for this particular user that will run the script.
+#
+# Now Run the script:
+#      python backup.py "My Store name" ~/testbackup.checkoutbackup
 # Note that this script has no dependency on Checkout.app itself and therefore may be run from anywhere.
 
 from argparse import ArgumentParser
