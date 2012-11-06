@@ -12,7 +12,7 @@ This script can make a backup of your checkout database. This script is independ
 
 * Your checkout application must be running, but no need to be logged into a store.
 
-* Python 2.6 or higher.
+* Python 2.6 or higher, but we didn't try to run in python 3.x
 
 * The script needs access to the Postgresql 8.3 that is embedded in the Checkout.app application.
 
