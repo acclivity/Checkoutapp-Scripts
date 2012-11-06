@@ -12,11 +12,11 @@ This script can make a backup of a Checkout store. This script can run independe
 
 * a running Checkout.app (perhaps on a separate computer). There is no need to log in to a specific store.
 
-* Python 2.7 in case you are running python 2.6 (default on 10.6.8) you have to install the module [argparse](http://docs.python.org/dev/library/argparse.html), with the following command:
+* Python 2.6.x and 2.7.x, in case you are running python 2.6 (default on 10.6.8) you have to install the module [argparse](http://docs.python.org/dev/library/argparse.html), with the following command:
 
     `easy_install -U argparse`
     
- In case you don't have the correction credentials please add sudo infront of this command.
+ In case you don't have the permissions please add sudo in front of this command.
  
 
 * postgresql 8.3, included in Checkout.app or installed manually.
