@@ -41,12 +41,15 @@ for tool in ['psql','pg_dumpall','pg_dump']:
 
 #setup ~/.pgpass
 pgpass_path = os.path.expanduser('~/.pgpass')
+auth_line = 'localhost:5505:*:admin:admin\n'
 if not os.path.exists(pgpass_path): #create pgpass
-    pgpass = os.fdopen(os.open(pgpass_path,os.O_APPEND|os.O_CREAT|os.O_WRONLY,0600),'a')
+    with os.fdopen(os.open(pgpass_path,os.O_APPEND|os.O_CREAT|os.O_WRONLY,0600),'a') as pgpass:
+        pgpass.write(auth_line)
 else:
-    pgpass = open(pgpass_path,'a')
-pgpass.write('localhost:5505:*:admin:admin')
-pgpass.close()
+    with open(pgpass_path,'r') as pgpass:
+        if not auth_line in pgpass.readlines():
+            with open(pgpass_path,'a') as pgpass_a:
+                pgpass_a.write(auth_line)
 
 #determine store prefix from store name
 #get the list of database prefixes
