@@ -27,7 +27,7 @@ Preparation steps:
 
 Now your are ready to run the backup script:
 
-    `python backup.py "My Store name" ~/testbackup.checkoutbackup`
+    python backup.py "My Store name" ~/testbackup.checkoutbackup
     
 If you wish to automate the backup, running it once-a-day for example, you can use cron, or use the GUI application [Cronnix](http://code.google.com/p/cronnix/) to set it up.
   
