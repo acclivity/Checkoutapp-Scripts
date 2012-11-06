@@ -12,6 +12,8 @@ This script can make a backup of your checkout database. This script is independ
 
 * Your checkout application must be running, but no need to be logged into a store.
 
+* Python 2.6 or higher.
+
 * The script needs access to the Postgresql 8.3 that is embedded in the Checkout.app application.
 
 The output file will be a compatible .checkoutdatabase file that is compressed with gzip, but can be used in the Manage Checkout Store... feature to restore your store.
@@ -34,5 +36,5 @@ Now your are ready to run the backup script:
 
     python backup.py "My Store name" ~/testbackup.checkoutbackup
     
-In case you want to automate the backup and have it run once a day for example you can use cron, or use the GUI application [Cronnix](http://code.google.com/p/cronnix/) to set it up.
+In case you want to automate the backup and would like to run it once a day for example you can use cron, or use the GUI application [Cronnix](http://code.google.com/p/cronnix/) to set it up.
   
